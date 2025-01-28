@@ -4,11 +4,6 @@ import { TypingAnimation } from '@/components/ui/TypingAnimation';
 import { motion } from 'framer-motion';
 import { fadeIn, staggerContainer } from '@/lib/utils/animations';
 import { Icon } from '@iconify-icon/react';
-import dynamic from 'next/dynamic';
-
-const Scene = dynamic(() => import('@/components/ui/Scene').then(mod => mod.Scene), {
-  ssr: false,
-});
 
 export function Hero() {
   return (
