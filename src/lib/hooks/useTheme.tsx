@@ -35,42 +35,34 @@ export function ThemeProvider({
   defaultMode?: string;
 }) {
   const [theme, setTheme] = useState<Theme>(() => {
-    const initialTheme = themes.find(t => t.value === defaultMode) || defaultTheme;
-    return initialTheme;
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        return themes.find(t => t.value === savedTheme) || defaultTheme;
+      }
+    }
+    return themes.find(t => t.value === defaultMode) || defaultTheme;
   });
   const [mounted, setMounted] = useState(false);
 
-  // Effect for initial client-side setup
   useEffect(() => {
     setMounted(true);
-    const savedTheme = getInitialTheme();
-    setTheme(savedTheme);
   }, []);
 
-  // Effect for theme changes
   useEffect(() => {
-    if (mounted) {
+    if (mounted && typeof window !== 'undefined') {
       document.documentElement.setAttribute('data-theme', theme.value);
       localStorage.setItem('theme', theme.value);
     }
   }, [theme, mounted]);
 
-  const contextValue = {
-    theme,
-    setTheme,
-  };
-
   // Prevent hydration mismatch
   if (!mounted) {
-    return (
-      <div style={{ visibility: 'hidden' }}>
-        {children}
-      </div>
-    );
+    return <div style={{ visibility: 'hidden' }}>{children}</div>;
   }
 
   return (
-    <ThemeContext.Provider value={contextValue}>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
@@ -79,7 +71,13 @@ export function ThemeProvider({
 export function useTheme() {
   const context = useContext(ThemeContext);
   if (context === null) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    // Return a default theme instead of throwing an error
+    return {
+      theme: defaultTheme,
+      setTheme: () => {
+        console.warn('ThemeProvider not found, using default theme');
+      },
+    };
   }
   return context;
 }
