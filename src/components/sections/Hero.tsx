@@ -11,21 +11,32 @@ export function Hero() {
       id="hero"
       className="min-h-screen flex items-center justify-center relative overflow-hidden py-16 px-4"
     >
+      <div className="absolute inset-0 bg-gradient-to-b from-base-200/50 to-transparent" />
+      
       <motion.div
         variants={staggerContainer}
         initial="hidden"
         animate="show"
         className="container mx-auto text-center relative z-10"
       >
+        <motion.div
+          variants={fadeIn('up')}
+          className="mb-8 inline-block"
+        >
+          <span className="px-6 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+            Welcome to my portfolio
+          </span>
+        </motion.div>
+
         <motion.h1
           variants={fadeIn('up')}
-          className="text-4xl md:text-6xl font-bold mb-6"
+          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
         >
           Hi, I&apos;m{' '}
-          <span className="gradient-text">
+          <span className="bg-gradient-to-r from-primary via-secondary to-accent animate-gradient-x bg-clip-text text-transparent">
             <TypingAnimation
               sequence={[
-                'John Doe',
+                'Monnss69',
                 2000,
                 'a Developer',
                 2000,
@@ -38,26 +49,26 @@ export function Hero() {
 
         <motion.p
           variants={fadeIn('up')}
-          className="text-lg md:text-xl mb-8 max-w-2xl mx-auto"
+          className="text-lg md:text-xl mb-12 max-w-2xl mx-auto text-base-content/80"
         >
           I build modern web applications with a focus on user experience and
           performance. Let&apos;s create something amazing together!
         </motion.p>
 
-        <motion.div variants={fadeIn('up')} className="flex gap-4 justify-center">
+        <motion.div variants={fadeIn('up')} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
             href="#contact"
-            className="btn btn-primary gap-2"
+            className="btn btn-primary btn-lg gap-2 min-w-[200px] shadow-lg shadow-primary/20"
           >
-            <Icon icon="mdi:message" />
+            <Icon icon="mdi:message" className="text-xl" />
             Contact Me
           </a>
           <a
             href="/cv.pdf"
             target="_blank"
-            className="btn btn-outline gap-2"
+            className="btn btn-outline btn-lg gap-2 min-w-[200px] hover:shadow-lg"
           >
-            <Icon icon="mdi:file-document" />
+            <Icon icon="mdi:file-document" className="text-xl" />
             Download CV
           </a>
         </motion.div>
@@ -77,7 +88,7 @@ export function Hero() {
           href="#experience"
           className="animate-bounce flex flex-col items-center text-base-content/50 hover:text-base-content transition-colors"
         >
-          <span className="text-sm mb-2">Scroll Down</span>
+          <span className="text-sm font-medium mb-2">Explore More</span>
           <Icon icon="mdi:chevron-down" className="text-2xl" />
         </a>
       </motion.div>
