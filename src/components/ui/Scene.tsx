@@ -2,8 +2,8 @@
 
 import { useModel } from '@/lib/hooks/useModel';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
-import { Suspense } from 'react';
+import { OrbitControls } from '@react-three/drei';
+import { Suspense, useEffect, useState } from 'react';
 
 function Model() {
   const { gltf, isLoaded } = useModel('/scene.gltf');
@@ -21,11 +21,20 @@ function Model() {
 }
 
 export function Scene() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="absolute inset-0 -z-10" />;
+  }
+
   return (
     <div className="absolute inset-0 -z-10">
-      <Canvas>
+      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 5], fov: 45 }}>
         <Suspense fallback={null}>
-          <PerspectiveCamera makeDefault position={[0, 0, 5]} />
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
           <Model />
