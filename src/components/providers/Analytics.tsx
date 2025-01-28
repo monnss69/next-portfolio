@@ -1,11 +1,13 @@
+// src/components/providers/Analytics.tsx
 'use client';
 
 import { GA_TRACKING_ID, pageview } from '@/lib/utils/analytics';
 import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
+import { Suspense } from 'react';
 
-export function Analytics() {
+function AnalyticsContent() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -39,5 +41,13 @@ export function Analytics() {
         }}
       />
     </>
+  );
+}
+
+export function Analytics() {
+  return (
+    <Suspense fallback={null}>
+      <AnalyticsContent />
+    </Suspense>
   );
 }

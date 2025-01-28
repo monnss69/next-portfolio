@@ -8,30 +8,69 @@ type ThemeContextType = {
   setTheme: (theme: Theme) => void;
 };
 
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
-
-const themes: Theme[] = [
+export const themes: Theme[] = [
   { name: 'Light', value: 'light' },
   { name: 'Dark', value: 'modern' },
 ];
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(themes[1]); // Default to dark theme
+const defaultTheme = themes[1];
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
+const ThemeContext = createContext<ThemeContextType | null>(null);
+
+function getInitialTheme(): Theme {
+  if (typeof window !== 'undefined') {
+    const savedTheme = window.localStorage.getItem('theme');
     if (savedTheme) {
-      setTheme(themes.find(t => t.value === savedTheme) || themes[1]);
+      return themes.find(t => t.value === savedTheme) || defaultTheme;
     }
+  }
+  return defaultTheme;
+}
+
+export function ThemeProvider({
+  children,
+  defaultMode = defaultTheme.value,
+}: {
+  children: React.ReactNode;
+  defaultMode?: string;
+}) {
+  const [theme, setTheme] = useState<Theme>(() => {
+    const initialTheme = themes.find(t => t.value === defaultMode) || defaultTheme;
+    return initialTheme;
+  });
+  const [mounted, setMounted] = useState(false);
+
+  // Effect for initial client-side setup
+  useEffect(() => {
+    setMounted(true);
+    const savedTheme = getInitialTheme();
+    setTheme(savedTheme);
   }, []);
 
+  // Effect for theme changes
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme.value);
-    localStorage.setItem('theme', theme.value);
-  }, [theme]);
+    if (mounted) {
+      document.documentElement.setAttribute('data-theme', theme.value);
+      localStorage.setItem('theme', theme.value);
+    }
+  }, [theme, mounted]);
+
+  const contextValue = {
+    theme,
+    setTheme,
+  };
+
+  // Prevent hydration mismatch
+  if (!mounted) {
+    return (
+      <div style={{ visibility: 'hidden' }}>
+        {children}
+      </div>
+    );
+  }
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   );
@@ -39,10 +78,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
 export function useTheme() {
   const context = useContext(ThemeContext);
-  if (context === undefined) {
+  if (context === null) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
 }
-
-export { themes };

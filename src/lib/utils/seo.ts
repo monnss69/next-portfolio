@@ -25,4 +25,4 @@ export const defaultSEO = {
     site: '@johndoe',
     cardType: 'summary_large_image',
   },
-} as const;
+}
