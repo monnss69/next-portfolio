@@ -1,6 +1,8 @@
 'use client';
 
 import { Wave } from '@/components/ui/Wave';
+import { Card } from '@/components/ui/Card';
+import { SectionHeader } from '@/components/ui/SectionHeader';
 import { experiences } from '@/data/portfolio';
 import { fadeIn, staggerContainer } from '@/lib/utils/animations';
 import { motion } from 'framer-motion';
@@ -18,62 +20,68 @@ export function Experience() {
         viewport={{ once: true, amount: 0.25 }}
         className="container mx-auto px-4"
       >
-        <motion.h2
-          variants={fadeIn('up')}
-          className="text-3xl md:text-4xl font-bold text-center mb-12"
-        >
-          Work Experience
-        </motion.h2>
+        <SectionHeader
+          title="Work Experience"
+          subtitle="My professional journey and achievements in the tech industry"
+        />
 
         <div className="max-w-4xl mx-auto">
           {experiences.map((experience, index) => (
             <motion.div
               key={index}
               variants={fadeIn('up')}
-              className="mb-8 relative pl-8 border-l-2 border-primary"
+              className="mb-12 relative pl-8 border-l-2 border-primary/30 last:mb-0"
             >
               <div className="absolute -left-3 top-0">
-                <div className="w-4 h-4 rounded-full bg-primary" />
+                <div className="w-4 h-4 rounded-full bg-gradient-to-r from-primary to-secondary shadow-lg" />
               </div>
               
-              <div className="card bg-base-100 shadow-xl">
-                <div className="card-body">
-                  <h3 className="card-title text-xl font-bold">
-                    {experience.title}
-                  </h3>
-                  <p className="text-lg font-semibold text-primary">
-                    {experience.company}
-                  </p>
-                  <div className="flex flex-wrap gap-2 text-sm text-base-content/70">
-                    <span className="flex items-center gap-1">
-                      <Icon icon="mdi:map-marker" />
+              <Card className="bg-base-100">
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                      {experience.title}
+                    </h3>
+                    <p className="text-lg font-semibold mt-1">
+                      {experience.company}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-4 text-sm text-base-content/70">
+                    <span className="flex items-center gap-2 bg-base-200 px-3 py-1 rounded-full">
+                      <Icon icon="mdi:map-marker" className="text-primary" />
                       {experience.location}
                     </span>
-                    <span className="flex items-center gap-1">
-                      <Icon icon="mdi:calendar" />
+                    <span className="flex items-center gap-2 bg-base-200 px-3 py-1 rounded-full">
+                      <Icon icon="mdi:calendar" className="text-primary" />
                       {experience.period}
                     </span>
                   </div>
-                  <ul className="mt-4 space-y-2">
+
+                  <ul className="space-y-3">
                     {experience.description.map((item, i) => (
-                      <li key={i} className="flex gap-2">
-                        <Icon icon="mdi:chevron-right" className="flex-shrink-0 mt-1" />
-                        <span>{item}</span>
+                      <li key={i} className="flex gap-3 items-start">
+                        <Icon 
+                          icon="mdi:check-circle" 
+                          className="flex-shrink-0 mt-1 text-lg text-primary"
+                        />
+                        <span className="text-base-content/80">{item}</span>
                       </li>
                     ))}
                   </ul>
-                  <div className="flex flex-wrap gap-2 mt-4">
+
+                  <div className="flex flex-wrap gap-2 pt-2">
                     {experience.technologies.map((tech, i) => (
                       <span
                         key={i}
-                        className="badge badge-primary badge-outline"
+                        className="px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary"
                       >
                         {tech}
                       </span>
                     ))}
                   </div>
                 </div>
-              </div>
+              </Card>
             </motion.div>
           ))}
         </div>
