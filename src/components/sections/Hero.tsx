@@ -11,8 +11,6 @@ export function Hero() {
       id="hero"
       className="min-h-screen flex items-center justify-center relative overflow-hidden py-16 px-4"
     >
-      <Scene />
-      
       <motion.div
         variants={staggerContainer}
         initial="hidden"
