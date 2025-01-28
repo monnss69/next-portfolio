@@ -28,8 +28,8 @@ export const projects: Project[] = [
       issues: 2,
     },
     links: {
-      github: 'https://github.com/username/portfolio',
-      live: 'https://portfolio.dev',
+      github: 'https://github.com/monnss69/next-portfolio',
+      live: process.env.NEXT_PUBLIC_APP_URL,
     },
   },
   // Add more projects...
@@ -52,13 +52,17 @@ export const technologies: Technology[] = [
 export const socialLinks: SocialLink[] = [
   {
     name: 'GitHub',
-    url: 'https://github.com/username',
+    url: process.env.NEXT_PUBLIC_GITHUB_URL || 'https://github.com/monnss69',
     icon: 'mdi:github',
   },
   {
     name: 'LinkedIn',
-    url: 'https://linkedin.com/in/username',
+    url: process.env.NEXT_PUBLIC_LINKEDIN_URL || 'https://linkedin.com/in/monnss69',
     icon: 'mdi:linkedin',
   },
-  // Add more social links...
+  {
+    name: 'Twitter',
+    url: process.env.NEXT_PUBLIC_TWITTER_URL || 'https://twitter.com/monnss69',
+    icon: 'mdi:twitter',
+  },
 ];
