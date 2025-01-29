@@ -36,11 +36,11 @@ export function Hero() {
           <span className="bg-gradient-to-r from-primary via-secondary to-accent animate-gradient-x bg-clip-text text-transparent">
             <TypingAnimation
               sequence={[
-                'Monnss69',
+                'Pham Hai Minh',
                 2000,
-                'a Developer',
+                'a all-rounded Developer',
                 2000,
-                'a Designer',
+                'a Quantitative Researcher',
                 2000,
               ]}
             />

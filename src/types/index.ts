@@ -1,3 +1,4 @@
+// src/types/index.ts
 export interface Experience {
   title: string;
   company: string;
@@ -7,19 +8,24 @@ export interface Experience {
   technologies: string[];
 }
 
+export interface ProjectMetrics {
+  performance?: number;
+  uptime?: number;
+  coverage?: number;
+  completed?: boolean;
+  duration?: string;
+}
+
 export interface Project {
   title: string;
   description: string;
   image: string;
   technologies: string[];
-  metrics: {
-    stars: number;
-    forks: number;
-    issues: number;
-  };
+  metrics: ProjectMetrics;
   links: {
     github?: string;
     live?: string;
+    certificate?: string;
   };
 }
 
@@ -38,4 +44,12 @@ export interface SocialLink {
 export interface Theme {
   name: string;
   value: string;
+}
+
+export interface Education {
+  school: string;
+  degree: string;
+  period: string;
+  location: string;
+  gpa: string;
 }

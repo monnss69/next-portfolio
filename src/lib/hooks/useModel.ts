@@ -1,3 +1,4 @@
+// src/lib/hooks/useModel.ts
 'use client';
 
 import { useGLTF } from '@react-three/drei';
@@ -21,10 +22,19 @@ export function useModel(path: string) {
   useEffect(() => {
     useGLTF.preload(path);
     setIsLoaded(true);
+    
     return () => {
-      useGLTF.dispose(path);
+      // Clean up materials and geometries
+      Object.values(gltf.materials).forEach(material => material.dispose());
+      Object.values(gltf.nodes).forEach(mesh => {
+        if (mesh.geometry) mesh.geometry.dispose();
+        if (mesh.material) {
+          const materials = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+          materials.forEach(material => material.dispose());
+        }
+      });
     };
-  }, [path]);
+  }, [path, gltf]);
 
   return { gltf, isLoaded };
 }

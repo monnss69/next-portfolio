@@ -48,6 +48,7 @@ export function AppBar() {
                       e.preventDefault();
                       scrollToSection(item.href.slice(1));
                     }}
+                    className="text-base-content/70 hover:text-primary transition-colors"
                   >
                     {item.label}
                   </a>
@@ -61,14 +62,14 @@ export function AppBar() {
               e.preventDefault();
               scrollToSection('hero');
             }}
-            className="btn btn-ghost text-xl"
+            className="btn btn-ghost text-xl text-primary hover:text-primary/80 transition-colors"
           >
             Portfolio
           </a>
         </div>
         
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 gap-2">
             {navItems.map((item) => (
               <li key={item.href}>
                 <a
@@ -77,6 +78,7 @@ export function AppBar() {
                     e.preventDefault();
                     scrollToSection(item.href.slice(1));
                   }}
+                  className="text-base-content/70 hover:text-primary hover:bg-primary/10 rounded-lg px-4 py-2 transition-colors"
                 >
                   {item.label}
                 </a>
@@ -87,7 +89,7 @@ export function AppBar() {
         
         <div className="navbar-end">
           <button
-            className="btn btn-square btn-ghost"
+            className="btn btn-ghost btn-circle text-base-content/70 hover:text-primary hover:bg-primary/10 transition-colors"
             onClick={toggleTheme}
             aria-label="Toggle theme"
           >

@@ -1,8 +1,8 @@
 import { env } from './env';
 
-const name = 'Monnss69';
-const role = 'Software Engineer';
-const description = 'Personal portfolio website showcasing my work and experience in web development, design, and software engineering.';
+const name = 'Pham Hai Minh';
+const role = 'Computer Science Student';
+const description = 'Computer Science student at National University of Singapore with experience in full-stack development and quantitative research.';
 
 export const defaultSEO = {
   title: `${name} | ${role}`,
@@ -25,8 +25,8 @@ export const defaultSEO = {
     ],
   },
   twitter: {
-    handle: '@monnss69',
-    site: '@monnss69',
+    handle: '@phm',
+    site: '@phm',
     cardType: 'summary_large_image',
   },
-}
+};
