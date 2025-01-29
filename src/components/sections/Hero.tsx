@@ -38,9 +38,9 @@ export function Hero() {
               sequence={[
                 'Pham Hai Minh',
                 2000,
-                'a all-rounded Developer',
+                'a passionate Developer',
                 2000,
-                'a Quantitative Researcher',
+                'a naive Quantitative Researcher',
                 2000,
               ]}
             />
@@ -51,8 +51,8 @@ export function Hero() {
           variants={fadeIn('up')}
           className="text-lg md:text-xl mb-12 max-w-2xl mx-auto text-base-content/80"
         >
-          I build modern web applications with a focus on user experience and
-          performance. Let&apos;s create something amazing together!
+          I like to build interesting projects, modern web applications with a focus on user experience and
+          performance. I&apos;m always open to thrive and learn. Let&apos;s create something amazing together!
         </motion.p>
 
         <motion.div variants={fadeIn('up')} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
