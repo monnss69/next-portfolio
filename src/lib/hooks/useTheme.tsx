@@ -10,7 +10,7 @@ type ThemeContextType = {
 
 export const themes: Theme[] = [
   { name: 'Light', value: 'light' },
-  { name: 'Dark', value: 'modern' },
+  { name: 'Dark', value: 'dark' },
 ];
 
 const defaultTheme = themes[1];
@@ -58,7 +58,7 @@ export function ThemeProvider({
 
   // Prevent hydration mismatch
   if (!mounted) {
-    return <div style={{ visibility: 'hidden' }}>{children}</div>;
+    return <div style={{ opacity: 0 }}>{children}</div>;
   }
 
   return (

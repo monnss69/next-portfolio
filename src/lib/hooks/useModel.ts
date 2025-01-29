@@ -19,15 +19,12 @@ export function useModel(path: string) {
   const gltf = useGLTF(path) as GLTFResult;
 
   useEffect(() => {
-    if (gltf) {
-      setIsLoaded(true);
-    }
+    useGLTF.preload(path);
+    setIsLoaded(true);
     return () => {
-      if (gltf) {
-        useGLTF.preload(path);
-      }
+      useGLTF.dispose(path);
     };
-  }, [gltf, path]);
+  }, [path]);
 
   return { gltf, isLoaded };
 }
